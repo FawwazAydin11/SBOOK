@@ -20,7 +20,7 @@
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            height: 80vh;
+            height: 90vh;
             max-height: 700px;
         }
         .login-form {
@@ -45,11 +45,9 @@
         .login-title {
             font-weight: 700;
             color: #2e8b57;
-            margin-bottom: 1rem;
         }
         .login-subtitle {
             color: #6c757d;
-            margin-bottom: 2rem;
         }
         .form-control {
             height: 50px;
@@ -120,7 +118,7 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid login-container">
+    <div class="container-fluid login-container mt-5">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-10">
                 <div class="login-box d-flex">
@@ -128,7 +126,7 @@
                     <div class="login-form col-md-6 d-flex align-items-center">
                         <div class="w-100">
                             <div class="text-center mb-5">
-                                <h2 class="login-title">SELAMAT DATANG KEMBALI</h2>
+                                <h2 class="login-title mt-2">SELAMAT DATANG KEMBALI</h2>
                                 <p class="login-subtitle">Silakan masuk dengan akun Anda</p>
                             </div>
 
@@ -171,11 +169,11 @@
                                     <i class="fas fa-sign-in-alt me-2"></i> MASUK
                                 </button>
 
-                                <!-- Masuk dengan Google -->
+                                {{-- <!-- Masuk dengan Google -->
                                 <button type="button" class="btn btn-google w-100 mb-4">
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="20" class="me-2" alt="Google">
                                     Masuk dengan Google
-                                </button>
+                                </button> --}}
 
                                 <!-- Daftar Akun -->
                                 <p class="text-center register-text">Belum punya akun? <a href="{{ route('register') }}" class="register-link">Daftar gratis!</a></p>

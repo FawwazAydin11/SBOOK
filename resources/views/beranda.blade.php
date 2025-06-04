@@ -1,109 +1,169 @@
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<style>
-    body {
-        background: #fff;
-        font-family: 'Inter', sans-serif;
-    }
-    .hero-section {
-        padding: 3rem 1rem;
-        background: linear-gradient(135deg, #ffffff 0%, #f3eaff 100%);
-        background-image: url('{{ asset('raket.jpg') }}');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        min-height: 88.1vh;
-        display: flex;
-        align-items: center;
-    }
-    .hero-text h1 {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #111;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-    }
-
-    .hero-text p {
-        font-size: 1.3rem;
-        color: #f9f7f7;
-        margin-top: 1rem;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-    }
-
-    .btn-gradient {
-        background: linear-gradient(90deg, #e94e77, #f77062);
-        color: #fff;
-        font-weight: 600;
-        padding: 0.8rem 2rem;
-        border-radius: 30px;
-        border: none;
-        box-shadow: 0px 5px 15px rgba(255, 79, 127, 0.3);
-        transition: all 0.3s ease;
-    }
-
-    .btn-gradient:hover {
-        transform: translateY(-3px);
-        opacity: 0.9;
-    }
-
-    /* Navbar Styles */
-    .navbar {
-        padding: 0.8rem 1rem;
-        background-color: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        border-bottom: 3px solid #ccc;
-    }
-
-    .navbar-brand {
-        font-weight: 800;
-        font-size: 1.5rem;
-        color: #111;
-    }
-
-    .auth-buttons .btn {
-        font-weight: 600;
-        padding: 0.5rem 1.2rem;
-        margin-left: 0.5rem;
-    }
-
-    @media (max-width: 768px) {
-        .hero-text h1 {
-            font-size: 2rem;
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8BOOK - Sewa Lapangan Badminton</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Navbar Styles */
+        .navbar {
+            padding: 0.8rem 1rem;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #e31e25;
+        }
+
+        .navbar-brand span {
+            color: #ffc107;
+        }
+
+        .auth-btn {
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login {
+            border: 2px solid #e31e25;
+            color: #e31e25;
+            margin-right: 10px;
+        }
+
+        .btn-login:hover {
+            background-color: #e31e25;
+            color: white;
+        }
+
+        .btn-register {
+            background-color: #e31e25;
+            color: white;
+            border: 2px solid #e31e25;
+        }
+
+        .btn-register:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        /* Hero Section Styles */
+        .hero-section {
+            padding: 3rem 1rem;
+            background-image: url('https://lh3.googleusercontent.com/p/AF1QipNYpYQuVpo0QDJOtTS0WsFZY6AzmIUuhzILAaMS=s1360-w1360-h1020-rw');
+            background-size: cover;
+            background-position: center;
+            min-height: 88.1vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
         .hero-text {
-            text-align: center;
+            position: relative;
+            z-index: 1;
         }
-        .auth-buttons {
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
-    }
-</style>
 
-<nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <a class="navbar-brand ms-5" href="#">SBOOK</a>        
-        @guest
-        <div class="auth-buttons d-flex me-5 px-1">
-            <a href="{{ route('login') }}" class="btn btn-outline-dark me-3 px-4">Log in</a>
-            <a href="{{ route('register') }}" class="btn btn-dark ">Sign up</a>
-        </div>
-        @endguest
-    </div>
-</nav>
+        .hero-text p {
+            font-size: 1.3rem;
+            color: white;
+            margin-top: 1rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
 
-<section class="hero-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6 hero-text mb-4 mb-md-0">
-                <h1>Main Badminton <br>Jadi Makin Seru!</h1>
-                <p>Temukan lapangan terbaik di kota Jember. Booking mudah, harga terjangkau, dan kualitas lapangan terjamin!</p>
-                <a href="/register" class="btn btn-gradient mt-4">Coba Sekarang</a>
+        .btn-gradient {
+            background: linear-gradient(90deg, #e31e25, #ff6b6b);
+            color: white;
+            font-weight: 600;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(227, 30, 37, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(227, 30, 37, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-text {
+                text-align: center;
+            }
+
+            .auth-buttons {
+                display: flex;
+                gap: 0.5rem;
+            }
+
+            .btn-login,
+            .btn-register {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <span>8</span>BOOK
+            </a>
+
+            <div class="auth-buttons">
+                <a href="{{ route('login') }}" class="auth-btn btn-login">Login</a>
+                <a href="{{ route('register') }}" class="auth-btn btn-register">Register</a>
             </div>
         </div>
-    </div>
-</section>
+    </nav>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 hero-text mb-4 mb-md-0">
+                    <h1>Main Badminton <br>Jadi Makin Praktis!</h1>
+                    <p>Sewa Lapangan di Lapangan 8 Jember kini makin mudah. 8BOOK hadir sebagai platform booking jadwal sewa lapangan, dimana saja dan kapan saja.</p>
+                    <a href="/register" class="btn btn-gradient">Coba Sekarang!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

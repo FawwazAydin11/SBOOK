@@ -15,20 +15,22 @@
         }
         .login-container {
             height: 100vh;
+            align-items: center;
         }
         .login-box {
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            height: 80vh;
+            height: 90vh;
             max-height: 700px;
+
         }
         .login-form {
             padding: 3rem;
             background: white;
         }
         .login-image {
-            background-image: url('https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-image: url('https://lh3.googleusercontent.com/p/AF1QipOqEEXMd9J9T4i3mWEWRMFM06-jo8pTjaStYbb2=w750-h606-p-k-no');
             background-size: cover;
             background-position: center;
             position: relative;
@@ -40,16 +42,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 100, 0, 0.6);
+            background: rgba(49, 44, 44, 0.6); /* Changed to #781113 with opacity */
         }
         .login-title {
             font-weight: 700;
-            color: #2e8b57;
-            margin-bottom: 1rem;
+            color: #e31e25; /* Changed to #e31e25 */
         }
         .login-subtitle {
             color: #6c757d;
-            margin-bottom: 2rem;
         }
         .form-control {
             height: 50px;
@@ -57,18 +57,18 @@
             border: 1px solid #ced4da;
         }
         .form-control:focus {
-            border-color: #2e8b57;
-            box-shadow: 0 0 0 0.25rem rgba(46, 139, 87, 0.25);
+            border-color: #e31e25; /* Changed to #e31e25 */
+            box-shadow: 0 0 0 0.25rem rgba(227, 30, 37, 0.25); /* Changed to #e31e25 */
         }
         .btn-login {
-            background-color: #2e8b57;
+            background-color: #e31e25; /* Changed to #e31e25 */
             border: none;
             height: 50px;
             border-radius: 8px;
             font-weight: 600;
         }
         .btn-login:hover {
-            background-color: #247347;
+            background-color: #781113; /* Changed to #781113 */
         }
         .btn-google {
             background-color: white;
@@ -81,21 +81,21 @@
             background-color: #f8f9fa;
         }
         .form-check-input:checked {
-            background-color: #2e8b57;
-            border-color: #2e8b57;
+            background-color: #e31e25; /* Changed to #e31e25 */
+            border-color: #e31e25; /* Changed to #e31e25 */
         }
         .forgot-link {
             color: #6c757d;
             text-decoration: none;
         }
         .forgot-link:hover {
-            color: #2e8b57;
+            color: #e31e25; /* Changed to #e31e25 */
         }
         .register-text {
             color: #6c757d;
         }
         .register-link {
-            color: #2e8b57;
+            color: #e31e25; /* Changed to #e31e25 */
             font-weight: 600;
             text-decoration: none;
         }
@@ -109,6 +109,11 @@
             flex-direction: column;
             justify-content: center;
         }
+        .alert-danger {
+            background-color: rgba(227, 30, 37, 0.1); /* Changed to #e31e25 with opacity */
+            border-color: rgba(227, 30, 37, 0.3); /* Changed to #e31e25 with opacity */
+            color: #e31e25; /* Changed to #e31e25 */
+        }
         @media (max-width: 991.98px) {
             .login-image {
                 display: none;
@@ -120,7 +125,7 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid login-container">
+    <div class="container-fluid login-container mt-5">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-10">
                 <div class="login-box d-flex">
@@ -128,7 +133,7 @@
                     <div class="login-form col-md-6 d-flex align-items-center">
                         <div class="w-100">
                             <div class="text-center mb-5">
-                                <h2 class="login-title">SELAMAT DATANG KEMBALI</h2>
+                                <h2 class="login-title mt-2">SELAMAT DATANG KEMBALI</h2>
                                 <p class="login-subtitle">Silakan masuk dengan akun Anda</p>
                             </div>
 
@@ -171,11 +176,6 @@
                                     <i class="fas fa-sign-in-alt me-2"></i> MASUK
                                 </button>
 
-                                <!-- Masuk dengan Google -->
-                                <button type="button" class="btn btn-google w-100 mb-4">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="20" class="me-2" alt="Google">
-                                    Masuk dengan Google
-                                </button>
 
                                 <!-- Daftar Akun -->
                                 <p class="text-center register-text">Belum punya akun? <a href="{{ route('register') }}" class="register-link">Daftar gratis!</a></p>
@@ -186,11 +186,7 @@
                     <!-- Gambar (Kanan) -->
                     <div class="login-image col-md-6 d-none d-md-block">
                         <div class="image-content">
-                            <h1 class="display-4 fw-bold mb-4">SHUTTLE<span class="text-warning">PRO</span></h1>
-                            <p class="lead mb-5">Sewa lapangan badminton berkualitas dengan harga terjangkau</p>
-                            <div class="text-center">
-                                <i class="fas fa-table-tennis fa-5x mb-3"></i>
-                            </div>
+                            <h1 class="display-4 fw-bold mb-4">8<span class="text-warning">BOOK</span></h1>
                         </div>
                     </div>
                 </div>

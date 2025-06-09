@@ -1,33 +1,63 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Middleware\CheckRole;
+use App\Http\Middleware\RedirectIfAuthenticatedByRole;
+use App\Http\Middleware\PreventBackHistory;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
-
+/*
+|--------------------------------------------------------------------------
+| Halaman Landing (disable cache agar tidak nyangkut)
+|--------------------------------------------------------------------------
+*/
 Route::get('/', function () {
-    return view('beranda');
+    return Response::nocache(view('beranda'));
+});
+
+/*
+|--------------------------------------------------------------------------
+| Auth: Login & Register (Guest Only, disable cache)
+|--------------------------------------------------------------------------
+*/
+Route::middleware([RedirectIfAuthenticatedByRole::class])->group(function () {
+    Route::get('/login', fn () => Response::nocache(
+        app(AuthenticatedSessionController::class)->create()
+    ))->name('login');
+
+    Route::get('/register', fn () => Response::nocache(
+        app(RegisteredUserController::class)->create()
+    ))->name('register');
 });
 
 
+Route::middleware([PreventBackHistory::class])->group(function () {
+    Route::get('/', function () {
+        return view('beranda');
+    });
 
+    Route::middleware([RedirectIfAuthenticatedByRole::class])->group(function () {
+        Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+        Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    });
+});
 
+/*
+|--------------------------------------------------------------------------
+| Dashboard Redirect Handler (hindari /dashboard kosong)
+|--------------------------------------------------------------------------
+*/
+Route::redirect('/dashboard', '/'); // Redirect jika /dashboard diakses langsung
 
+/*
+|--------------------------------------------------------------------------
+| Dashboard Role-Based
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth', CheckRole::class . ':pelanggan'])->group(function () {
     Route::get('/pelanggan/dashboard', function () {
         return view('pelanggan.dashboard');
@@ -40,4 +70,20 @@ Route::middleware(['auth', CheckRole::class . ':pemilik'])->group(function () {
     })->name('pemilik.dashboard');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Profil Pengguna
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
+/*
+|--------------------------------------------------------------------------
+| Auth Routes Default (Logout dll)
+|--------------------------------------------------------------------------
+*/
+require __DIR__.'/auth.php';

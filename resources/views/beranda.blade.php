@@ -144,8 +144,23 @@
             </a>
 
             <div class="auth-buttons">
-                <a href="{{ route('login') }}" class="auth-btn btn-login">Login</a>
-                <a href="{{ route('register') }}" class="auth-btn btn-register">Register</a>
+                @auth
+                    @if (Auth::user()->role === 'pelanggan')
+                        <a href="{{ route('pelanggan.dashboard') }}" class="auth-btn btn-login">Dashboard</a>
+                    @elseif (Auth::user()->role === 'pemilik')
+                        <a href="{{ route('pemilik.dashboard') }}" class="auth-btn btn-login">Dashboard</a>
+                    @endif
+
+                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="auth-btn btn-register btn-danger" style="border: none;">
+                            Logout
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="auth-btn btn-login">Login</a>
+                    <a href="{{ route('register') }}" class="auth-btn btn-register">Register</a>
+                @endauth
             </div>
         </div>
     </nav>
@@ -157,7 +172,17 @@
                 <div class="col-md-6 hero-text mb-4 mb-md-0">
                     <h1>Main Badminton <br>Jadi Makin Praktis!</h1>
                     <p>Sewa Lapangan di Lapangan 8 Jember kini makin mudah. 8BOOK hadir sebagai platform booking jadwal sewa lapangan, dimana saja dan kapan saja.</p>
-                    <a href="/register" class="btn btn-gradient">Coba Sekarang!</a>
+
+                    @auth
+                        @if (Auth::user()->role === 'pelanggan')
+                            <a href="{{ route('pelanggan.dashboard') }}" class="btn btn-gradient">Lihat Dashboard</a>
+                        @elseif (Auth::user()->role === 'pemilik')
+                            <a href="{{ route('pemilik.dashboard') }}" class="btn btn-gradient">Lihat Dashboard</a>
+                        @endif
+                    @else
+                        <a href="{{ route('register') }}" class="btn btn-gradient">Coba Sekarang!</a>
+                    @endauth
+
                 </div>
             </div>
         </div>

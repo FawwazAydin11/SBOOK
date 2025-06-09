@@ -12,12 +12,13 @@ class AdminSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run()
+    public function run(): void
     {
         User::create([
-            'name' => 'Admin Lapangan',
-            'email' => 'admin@sbook.com',
-            'password' => Hash::make('admin123'), // password bisa diganti
+            'name' => 'Admin',
+            'username' => 'admin8', // pastikan unik
+            'email' => 'admin@example.com',
+            'password' => Hash::make('adminpassword123'), // ganti password yang kuat
             'role' => 'pemilik',
         ]);
     }

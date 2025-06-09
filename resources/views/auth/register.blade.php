@@ -166,6 +166,21 @@
                                 @enderror
                             </div>
 
+                            <!-- Username -->
+                            <div class="mb-2">
+                                <label for="username" class="form-label">Username</label>
+                                <input id="username" class="form-control"
+                                    type="text"
+                                    name="username"
+                                    value="{{ old('username') }}"
+                                    required
+                                    autocomplete="username"
+                                    placeholder="Masukkan username" />
+                                @error('username')
+                                    <span class="error-message">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                             <!-- Email Address -->
                             <div class="mb-2">
                                 <label for="email" class="form-label">Email</label>
@@ -174,7 +189,7 @@
                                     name="email"
                                     value="{{ old('email') }}"
                                     required
-                                    autocomplete="username"
+                                    autocomplete="email"
                                     placeholder="Masukkan email" />
                                 @error('email')
                                     <span class="error-message">{{ $message }}</span>
@@ -215,7 +230,9 @@
                             </button>
 
                             <!-- Login Link -->
-                            <p class="text-center auth-text">Sudah punya akun? <a href="{{ route('login') }}" class="auth-alt-link">Masuk disini!</a></p>
+                            <p class="text-center auth-text">Sudah punya akun?
+                                <a href="{{ route('login') }}" class="auth-alt-link">Masuk disini!</a>
+                            </p>
                         </form>
                     </div>
                 </div>

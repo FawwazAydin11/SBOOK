@@ -150,17 +150,24 @@
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
 
-                                <!-- Email -->
+                                <!-- Username -->
                                 <div class="mb-4">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email Anda" required>
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username Anda" required autofocus>
                                 </div>
 
-                                <!-- Password -->
+                                <!-- Password dengan toggle -->
                                 <div class="mb-4">
                                     <label for="password" class="form-label">Kata Sandi</label>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan kata sandi" required>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            placeholder="Masukkan kata sandi" required>
+                                        <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                            <i class="fa fa-eye-slash" id="eyeIcon"></i>
+                                        </button>
+                                    </div>
                                 </div>
+
 
                                 <!-- Ingat Saya & Lupa Password -->
                                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -176,9 +183,10 @@
                                     <i class="fas fa-sign-in-alt me-2"></i> MASUK
                                 </button>
 
-
                                 <!-- Daftar Akun -->
-                                <p class="text-center register-text">Belum punya akun? <a href="{{ route('register') }}" class="register-link">Daftar gratis!</a></p>
+                                <p class="text-center register-text">Belum punya akun?
+                                    <a href="{{ route('register') }}" class="register-link">Daftar gratis!</a>
+                                </p>
                             </form>
                         </div>
                     </div>
@@ -195,6 +203,22 @@
     </div>
 
     <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleBtn = document.getElementById('togglePassword');
+            const passwordField = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+
+            if (toggleBtn && passwordField && eyeIcon) {
+                toggleBtn.addEventListener('click', () => {
+                    const type = passwordField.type === 'password' ? 'text' : 'password';
+                    passwordField.type = type;
+
+                    eyeIcon.classList.toggle('fa-eye');
+                    eyeIcon.classList.toggle('fa-eye-slash');
+                });
+            }
+        });
+    </script>
 </body>
 </html>

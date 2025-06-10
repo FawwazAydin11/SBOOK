@@ -199,30 +199,42 @@
                             <!-- Password -->
                             <div class="mb-2">
                                 <label for="password" class="form-label">Password</label>
-                                <input id="password" class="form-control"
-                                    type="password"
-                                    name="password"
-                                    required
-                                    autocomplete="new-password"
-                                    placeholder="Buat password" />
+                                <div class="input-group">
+                                    <input id="password" class="form-control"
+                                        type="password"
+                                        name="password"
+                                        required
+                                        autocomplete="new-password"
+                                        placeholder="Buat password" />
+                                    <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                        <i class="fa fa-eye-slash" id="eyeIcon1"></i>
+                                    </button>
+                                </div>
                                 @error('password')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
                             </div>
 
+
                             <!-- Confirm Password -->
                             <div class="mb-3">
                                 <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                                <input id="password_confirmation" class="form-control"
-                                    type="password"
-                                    name="password_confirmation"
-                                    required
-                                    autocomplete="new-password"
-                                    placeholder="Ulangi password" />
+                                <div class="input-group">
+                                    <input id="password_confirmation" class="form-control"
+                                        type="password"
+                                        name="password_confirmation"
+                                        required
+                                        autocomplete="new-password"
+                                        placeholder="Ulangi password" />
+                                    <button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword">
+                                        <i class="fa fa-eye-slash" id="eyeIcon2"></i>
+                                    </button>
+                                </div>
                                 @error('password_confirmation')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
                             </div>
+
 
                             <!-- Register Button -->
                             <button type="submit" class="btn btn-auth w-100">
@@ -246,6 +258,39 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+            document.addEventListener("DOMContentLoaded", function () {
+                // Password toggle
+                const passwordField = document.getElementById("password");
+                const passwordBtn = document.getElementById("togglePassword");
+                const eyeIcon1 = document.getElementById("eyeIcon1");
+
+                if (passwordBtn && passwordField && eyeIcon1) {
+                    passwordBtn.addEventListener("click", function () {
+                        const isHidden = passwordField.type === "password";
+                        passwordField.type = isHidden ? "text" : "password";
+                        eyeIcon1.classList.toggle("fa-eye");
+                        eyeIcon1.classList.toggle("fa-eye-slash");
+                    });
+                }
+
+                // Confirm password toggle
+                const confirmField = document.getElementById("password_confirmation");
+                const confirmBtn = document.getElementById("toggleConfirmPassword");
+                const eyeIcon2 = document.getElementById("eyeIcon2");
+
+                if (confirmBtn && confirmField && eyeIcon2) {
+                    confirmBtn.addEventListener("click", function () {
+                        const isHidden = confirmField.type === "password";
+                        confirmField.type = isHidden ? "text" : "password";
+                        eyeIcon2.classList.toggle("fa-eye");
+                        eyeIcon2.classList.toggle("fa-eye-slash");
+                    });
+                }
+            });
+
+
+    </script>
 </body>
 </html>

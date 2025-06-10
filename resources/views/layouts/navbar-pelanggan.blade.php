@@ -25,8 +25,8 @@
                         <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded" style="height: 2px; width: 0; transition: width 0.3s ease;"></span>
                     </a>
                 <li class="nav-item mx-1 mx-lg-2">
-                    <a class="nav-link fw-medium position-relative px-2" href="{{ url('/pelanggan/profil') }}">
-                        Profil
+                    <a class="nav-link fw-medium position-relative px-2" href="{{ url('/pelanggan/akun') }}">
+                        Akun
                         <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded" style="height: 2px; width: 0; transition: width 0.3s ease;"></span>
                     </a>
                 </li>

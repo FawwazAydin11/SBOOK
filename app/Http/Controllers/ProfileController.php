@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -12,35 +10,48 @@ use Illuminate\View\View;
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Tampilkan halaman profil pengguna.
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
-    }
+        $role = $request->user()->role;
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($role === 'pelanggan') {
+            return view('pelanggan.akun');
+        } elseif ($role === 'pemilik') {
+            return view('pemilik.akun');
+        } else {
+            abort(403, 'Unauthorized');
         }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
     /**
-     * Delete the user's account.
+     * Perbarui data profil pengguna.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function update(Request $request)
+    {
+        $user = $request->user();
+
+        $validated = $request->validate([
+            'name' => ['bail', 'required', 'regex:/^[A-Za-z\s]+$/'],
+            'username' => ['bail', 'required', 'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/', 'unique:users,username,' . $user->id],
+            'email' => ['bail', 'required', 'email', 'unique:users,email,' . $user->id],
+        ], [
+            'required' => 'Data harus diisi',
+            'regex' => 'Format harus sesuai',
+            'email' => 'Format harus sesuai',
+        ]);
+
+        $user->update($validated);
+
+        return Redirect::route('profile.edit')->with('status', 'Profil berhasil diperbarui');
+    }
+
+
+    /**
+     * Hapus akun pengguna.
+     */
+    public function destroy(Request $request)
     {
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
@@ -55,6 +66,6 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return redirect('/');
     }
 }

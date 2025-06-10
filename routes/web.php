@@ -62,6 +62,8 @@ Route::middleware(['auth', CheckRole::class . ':pelanggan'])->group(function () 
     Route::get('/pelanggan/dashboard', function () {
         return view('pelanggan.dashboard');
     })->name('pelanggan.dashboard');
+    
+    Route::get('/pelanggan/akun', [ProfileController::class, 'edit'])->name('pelanggan.akun');
 });
 
 Route::middleware(['auth', CheckRole::class . ':pemilik'])->group(function () {
@@ -75,11 +77,21 @@ Route::middleware(['auth', CheckRole::class . ':pemilik'])->group(function () {
 | Profil Pengguna
 |--------------------------------------------------------------------------
 */
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
+
+
+// =================================================================
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/akun', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/akun', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/akun', [ProfileController::class, 'destroy'])->name('profile.destroy'); // Opsional
 });
+
+
 
 /*
 |--------------------------------------------------------------------------

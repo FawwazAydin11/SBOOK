@@ -31,14 +31,6 @@
                     </a>
                 </li>
 
-                {{-- <li class="nav-item ms-1 ms-lg-2">
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger btn-sm py-1 px-3 rounded-pill hover-scale" style="transition: all 0.3s ease;">
-                            Logout
-                        </button>
-                    </form>
-                </li> --}}
             </ul>
         </div>
     </div>

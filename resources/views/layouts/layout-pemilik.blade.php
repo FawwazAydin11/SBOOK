@@ -16,7 +16,7 @@
 <body class="bg-gray-100">
 
     {{-- HEADER KHUSUS PEMILIK --}}
-    @include('layouts.navbar-pemilik')
+    @include('components.navbar-pemilik')
 
     <main class="py-6">
         @yield('content')

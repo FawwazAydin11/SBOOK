@@ -15,7 +15,7 @@
 <body class="bg-light"> --}}
 
     {{-- Navbar Pelanggan --}}
-    @include('layouts.navbar-pelanggan')
+    @include('components.navbar-pelanggan')
 
     {{-- Main Content --}}
     <main class="py-4 container">

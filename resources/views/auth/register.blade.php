@@ -136,6 +136,7 @@
     </style>
 </head>
 <body>
+    @php use Illuminate\Support\Str; @endphp
     <div class="container-fluid auth-container">
         <div class="container">
             <div class="auth-box">
@@ -147,52 +148,67 @@
                             <p class="auth-subtitle">Silakan isi formulir pendaftaran</p>
                         </div>
 
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('register') }}" novalidate>
                             @csrf
 
                             <!-- Name -->
                             <div class="mb-2">
                                 <label for="name" class="form-label">Nama Lengkap</label>
-                                <input id="name" class="form-control"
-                                    type="text"
-                                    name="name"
-                                    value="{{ old('name') }}"
-                                    required
-                                    autofocus
-                                    autocomplete="name"
+                                <input id="name" class="form-control" type="text" name="name"
+                                    value="{{ old('name') }}" autofocus autocomplete="name" required
                                     placeholder="Masukkan nama lengkap" />
                                 @error('name')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message">
+                                        @if (Str::contains($message, 'required'))
+                                            Data harus diisi
+                                        @elseif (Str::contains($message, 'regex'))
+                                            Format harus sesuai
+                                        @else
+                                            Format harus sesuai
+                                        @endif
+                                    </span>
                                 @enderror
                             </div>
 
                             <!-- Username -->
                             <div class="mb-2">
                                 <label for="username" class="form-label">Username</label>
-                                <input id="username" class="form-control"
-                                    type="text"
-                                    name="username"
-                                    value="{{ old('username') }}"
-                                    required
-                                    autocomplete="username"
+                                <input id="username" class="form-control" type="text" name="username"
+                                    value="{{ old('username') }}" autocomplete="username" required
                                     placeholder="Masukkan username" />
                                 @error('username')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message">
+                                        @if (Str::contains($message, 'required'))
+                                            Data harus diisi
+                                        @elseif (Str::contains($message, 'taken'))
+                                            Username telah digunakan
+                                        @elseif (Str::contains($message, 'regex'))
+                                            Format harus sesuai
+                                        @else
+                                            Format harus sesuai
+                                        @endif
+                                    </span>
                                 @enderror
                             </div>
 
-                            <!-- Email Address -->
+                            <!-- Email -->
                             <div class="mb-2">
                                 <label for="email" class="form-label">Email</label>
-                                <input id="email" class="form-control"
-                                    type="email"
-                                    name="email"
-                                    value="{{ old('email') }}"
-                                    required
-                                    autocomplete="email"
+                                <input id="email" class="form-control" type="email" name="email"
+                                    value="{{ old('email') }}" autocomplete="email" required
                                     placeholder="Masukkan email" />
                                 @error('email')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message">
+                                        @if (Str::contains($message, 'required'))
+                                            Data harus diisi
+                                        @elseif (Str::contains($message, 'taken'))
+                                            Email telah digunakan
+                                        @elseif (Str::contains($message, 'email'))
+                                            Format harus sesuai
+                                        @else
+                                            Format harus sesuai
+                                        @endif
+                                    </span>
                                 @enderror
                             </div>
 
@@ -200,38 +216,47 @@
                             <div class="mb-2">
                                 <label for="password" class="form-label">Password</label>
                                 <div class="input-group">
-                                    <input id="password" class="form-control"
-                                        type="password"
-                                        name="password"
-                                        required
-                                        autocomplete="new-password"
-                                        placeholder="Buat password" />
+                                    <input id="password" class="form-control" type="password" name="password"
+                                        autocomplete="new-password" required placeholder="Buat password" />
                                     <button type="button" class="btn btn-outline-secondary" id="togglePassword">
                                         <i class="fa fa-eye-slash" id="eyeIcon1"></i>
                                     </button>
                                 </div>
                                 @error('password')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message">
+                                        @if (Str::contains($message, 'required'))
+                                            Data harus diisi
+                                        @elseif (Str::contains($message, 'min') || Str::contains($message, 'mixed'))
+                                            Format harus sesuai
+                                        @elseif (Str::contains($message, 'confirmed'))
+                                            Konfirmasi password tidak cocok
+                                        @else
+                                            Format harus sesuai
+                                        @endif
+                                    </span>
                                 @enderror
                             </div>
 
-
-                            <!-- Confirm Password -->
+                            <!-- Konfirmasi Password -->
                             <div class="mb-3">
                                 <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                                 <div class="input-group">
-                                    <input id="password_confirmation" class="form-control"
-                                        type="password"
-                                        name="password_confirmation"
-                                        required
-                                        autocomplete="new-password"
-                                        placeholder="Ulangi password" />
+                                    <input id="password_confirmation" class="form-control" type="password" name="password_confirmation"
+                                        autocomplete="new-password" required placeholder="Ulangi password" />
                                     <button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword">
                                         <i class="fa fa-eye-slash" id="eyeIcon2"></i>
                                     </button>
                                 </div>
                                 @error('password_confirmation')
-                                    <span class="error-message">{{ $message }}</span>
+                                    <span class="error-message">
+                                        @if (Str::contains($message, 'required'))
+                                            Data harus diisi
+                                        @elseif (Str::contains($message, 'match'))
+                                            Konfirmasi password tidak cocok
+                                        @else
+                                            Format harus sesuai
+                                        @endif
+                                    </span>
                                 @enderror
                             </div>
 

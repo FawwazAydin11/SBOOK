@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\RedirectIfAuthenticatedByRole;
 use App\Http\Middleware\PreventBackHistory;
+use App\Http\Controllers\FieldController;
+use App\Http\Controllers\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,3 +95,17 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 require __DIR__.'/auth.php';
+
+
+// ============================
+Route::middleware(['auth'])->group(function () {
+    Route::resource('fields', FieldController::class); // fields.index ini yang dipanggil
+});
+
+
+
+Route::prefix('fields/{field}/schedules')->middleware(['auth'])->group(function () {
+    Route::get('/', [ScheduleController::class, 'index'])->name('fields.schedules.index');
+    Route::get('/create', [ScheduleController::class, 'create'])->name('fields.schedules.create');
+    Route::post('/', [ScheduleController::class, 'store'])->name('fields.schedules.store');
+});

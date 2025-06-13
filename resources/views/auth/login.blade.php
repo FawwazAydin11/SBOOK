@@ -128,8 +128,11 @@
     @php
         use Illuminate\Support\Str;
 
-        $credentialError = $errors->get('username')[0] ?? null;
-        $showCredentialErrorTop = Str::contains($credentialError, 'These credentials');
+        $usernameError = $errors->first('username');
+        $passwordError = $errors->first('password');
+
+        $showCredentialError = Str::contains($usernameError, 'These credentials');
+        $showRequiredError = Str::contains($usernameError, 'required') || Str::contains($passwordError, 'required');
     @endphp
     <div class="container-fluid login-container mt-5">
         <div class="row justify-content-center align-items-center">
@@ -143,14 +146,15 @@
                                 <p class="login-subtitle">Silakan masuk dengan akun Anda</p>
                             </div>
 
-                            @if ($showCredentialErrorTop)
+                            @if ($showCredentialError)
                                 <div class="alert alert-danger mb-4">
                                     Username atau password salah
                                 </div>
+                            @elseif ($showRequiredError)
+                                <div class="alert alert-danger mb-4">
+                                    Data harus diisi
+                                </div>
                             @endif
-
-
-
 
                             <form method="POST" action="{{ route('login') }}" novalidate>
                                 @csrf
@@ -158,38 +162,20 @@
                                 <!-- Username -->
                                 <div class="mb-4">
                                     <label for="username" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" placeholder="Masukkan username Anda" required autofocus>
-                                    @error('username')
-                                        @if (!Str::contains($message, 'These credentials'))
-                                            <span class="error-message">
-                                                @if (Str::contains($message, 'required'))
-                                                    Data harus diisi
-                                                @else
-                                                    Format harus sesuai
-                                                @endif
-                                            </span>
-                                        @endif
-                                    @enderror
+                                    <input type="text" class="form-control" id="username" name="username"
+                                        value="{{ old('username') }}" placeholder="Masukkan username Anda" required autofocus>
                                 </div>
 
                                 <!-- Password -->
                                 <div class="mb-4">
                                     <label for="password" class="form-label">Kata Sandi</label>
                                     <div class="input-group">
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan kata sandi" required>
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            placeholder="Masukkan kata sandi" required>
                                         <button type="button" class="btn btn-outline-secondary" id="togglePassword">
                                             <i class="fa fa-eye-slash" id="eyeIcon"></i>
                                         </button>
                                     </div>
-                                    @error('password')
-                                        <span class="error-message">
-                                            @if (Str::contains($message, 'required'))
-                                                Data harus diisi
-                                            @else
-                                                Format harus sesuai
-                                            @endif
-                                        </span>
-                                    @enderror
                                 </div>
 
 

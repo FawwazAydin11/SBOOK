@@ -15,7 +15,7 @@
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item mx-1 mx-lg-2">
                     <a class="nav-link fw-medium position-relative px-2" href="{{ url('/pemilik/dashboard') }}">
-                        Dashboard
+                        Beranda
                         <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded" style="height: 2px; width: 0; transition: width 0.3s ease;"></span>
                     </a>
                 </li>
@@ -26,32 +26,23 @@
                     </a>
                 </li>
                 <li class="nav-item mx-1 mx-lg-2">
+                    <a class="nav-link fw-medium position-relative px-2" href="{{ route('fields.index') }}">
+                        Lapangan
+                        <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded" style="height: 2px; width: 0; transition: width 0.3s ease;"></span>
+                    </a>
+                </li>
+                <li class="nav-item mx-1 mx-lg-2">
                     <a class="nav-link fw-medium position-relative px-2" href="#">
                         Laporan
                         <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded" style="height: 2px; width: 0; transition: width 0.3s ease;"></span>
                     </a>
                 </li>
                 <li class="nav-item mx-1 mx-lg-2">
-                    <a class="nav-link fw-medium position-relative px-2" href="#">
-                        Riwayat
-                        <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded" style="height: 2px; width: 0; transition: width 0.3s ease;"></span>
-                    </a>
-                </li>
-                <li class="nav-item mx-1 mx-lg-2">
                     <a class="nav-link fw-medium position-relative px-2" href="{{ url('/akun') }}">
-                        Profil
+                        Akun
                         <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded" style="height: 2px; width: 0; transition: width 0.3s ease;"></span>
                     </a>
                 </li>
-
-                {{-- <li class="nav-item ms-1 ms-lg-2">
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger btn-sm py-1 px-3 rounded-pill hover-scale" style="transition: all 0.3s ease;">
-                            Logout
-                        </button>
-                    </form>
-                </li> --}}
             </ul>
         </div>
     </div>

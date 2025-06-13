@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Field extends Model
 {
     protected $fillable = [
-        'user_id', 'name', 'photo', 'price',
-        'start_time', 'end_time', 'available_from'
+        'name', 'photo', 'price', 'available'
     ];
 
-    public function owner()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+    protected $casts = [
+    'available' => 'boolean',
+    ];
+
 }

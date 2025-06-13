@@ -32,16 +32,25 @@
                 {{-- DETAIL --}}
                 <div class="col-md-8 p-4 d-flex flex-column justify-content-between">
                     <div>
+                        {{-- NAMA --}}
                         <h5 class="fw-bold text-dark">{{ $field->name }}</h5>
-                        <p class="mb-2 text-muted small">
-                            Tersedia mulai: <strong>{{ \Carbon\Carbon::parse($field->available_from)->translatedFormat('d F Y') }}</strong>
-                        </p>
 
-                        <div class="d-flex flex-wrap gap-3 mb-3 text-dark">
-                            <div>
-                                <i class="bi bi-clock-history me-1 text-warning"></i>
-                                Operasional: {{ \Carbon\Carbon::parse($field->start_time)->format('H:i') }} - {{ \Carbon\Carbon::parse($field->end_time)->format('H:i') }}
-                            </div>
+                        {{-- STATUS --}}
+                        <div class="mb-3">
+                            <span class="fw-semibold me-2">Status:</span>
+                            @if($field->available)
+                                <span class="badge rounded-pill px-3 py-2" style="background-color: #ffc107; color: #212529;">
+                                    ✅ Available
+                                </span>
+                            @else
+                                <span class="badge rounded-pill px-3 py-2 text-white" style="background-color: #e31e25;">
+                                    ❌ Tidak Tersedia
+                                </span>
+                            @endif
+                        </div>
+
+                        {{-- INFO LAIN --}}
+                        <div class="d-flex flex-wrap gap-3 text-dark">
                             <div>
                                 <i class="bi bi-currency-dollar me-1 text-warning"></i>
                                 Harga: Rp{{ number_format($field->price, 0, ',', '.') }}/jam
@@ -54,6 +63,9 @@
                         <a href="{{ route('fields.schedules.index', $field->id) }}" class="btn text-white fw-semibold px-3" style="background-color: #e31e25;">
                             Lihat Jadwal
                         </a>
+                        <a href="{{ route('fields.edit', $field->id) }}" class="btn btn-outline-primary fw-semibold px-3">
+                             <i class="bi bi-pencil-square"></i> Edit Lapangan
+                        </a>
                     </div>
                 </div>
             </div>
@@ -63,4 +75,5 @@
         @endforelse
     </div>
 </div>
+
 @endsection

@@ -13,13 +13,10 @@ return new class extends Migration
     {
         Schema::create('fields', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained(); // Pemilik lapangan
             $table->string('name');
             $table->string('photo')->nullable(); // Foto lapangan
             $table->integer('price'); // Harga per jam
-            $table->time('start_time'); // Jam buka
-            $table->time('end_time');   // Jam tutup
-            $table->date('available_from'); // Tanggal mulai tersedia
+            $table->boolean('available');
             $table->timestamps();
         });
     }

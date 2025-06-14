@@ -14,4 +14,9 @@ class Field extends Model
     'available' => 'boolean',
     ];
 
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'lapangan_id');
+    }
+
 }

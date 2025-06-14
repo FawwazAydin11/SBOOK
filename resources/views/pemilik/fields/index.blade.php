@@ -15,13 +15,13 @@
     {{-- KONTEN DAFTAR LAPANGAN --}}
     <div class="row g-4">
         @forelse($fields as $field)
-        <div class="col-12">
+        <div class="col-6">
             <div class="card shadow-sm border-0 rounded-3 overflow-hidden d-flex flex-row">
 
                 {{-- FOTO --}}
                 <div class="col-md-4">
                     @if($field->photo)
-                        <img src="{{ asset('storage/' . $field->photo) }}" class="img-fluid h-100 w-100 object-fit-cover" style="object-fit: cover;" alt="{{ $field->name }}">
+                        <img src="{{ asset('storage/fields/' . $field->photo) }}" class="img-fluid h-100 w-100 object-fit-cover" style="object-fit: cover;" alt="{{ $field->name }}">
                     @else
                         <div class="bg-secondary text-white d-flex justify-content-center align-items-center h-100" style="height: 200px;">
                             Tidak Ada Gambar
@@ -60,7 +60,8 @@
 
                     {{-- TOMBOL AKSI --}}
                     <div class="mt-3 d-flex gap-2">
-                        <a href="{{ route('fields.schedules.index', $field->id) }}" class="btn text-white fw-semibold px-3" style="background-color: #e31e25;">
+                        <a href="{{ route('pemilik.lapangan.detail', ['lapanganId' => $field->id, 'tanggal' => date('Y-m-d')]) }}" 
+                        class="btn text-white fw-semibold px-3" style="background-color: #e31e25;">
                             Lihat Jadwal
                         </a>
                         <a href="{{ route('fields.edit', $field->id) }}" class="btn btn-outline-primary fw-semibold px-3">

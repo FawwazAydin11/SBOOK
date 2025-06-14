@@ -10,7 +10,9 @@ use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\RedirectIfAuthenticatedByRole;
 use App\Http\Middleware\PreventBackHistory;
 use App\Http\Controllers\FieldController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ScheduleController;
+
 
 
 /*
@@ -63,7 +65,12 @@ Route::redirect('/dashboard', '/'); // Redirect jika /dashboard diakses langsung
 */
 Route::middleware(['auth', CheckRole::class . ':pelanggan'])->group(function () {
     Route::get('/pelanggan/dashboard', function () {
-        return view('pelanggan.dashboard');
+        $orders = \App\Models\Order::where('user_id', auth()->id())
+            ->where('status', '!=', 'pending')
+            ->whereDate('tanggal', '>=', \Carbon\Carbon::today())
+            ->orderBy('tanggal', 'asc')
+            ->count();
+        return view('pelanggan.dashboard', compact('orders'));
     })->name('pelanggan.dashboard');
 
     Route::get('/pelanggan/akun', [ProfileController::class, 'edit'])->name('pelanggan.akun');
@@ -71,7 +78,8 @@ Route::middleware(['auth', CheckRole::class . ':pelanggan'])->group(function () 
 
 Route::middleware(['auth', CheckRole::class . ':pemilik'])->group(function () {
     Route::get('/pemilik/dashboard', function () {
-        return view('pemilik.dashboard');
+        $pendingCount = \App\Models\Order::where('status', 'pending')->count();
+        return view('pemilik.dashboard', compact('pendingCount'));
     })->name('pemilik.dashboard');
 });
 
@@ -101,20 +109,19 @@ require __DIR__.'/auth.php';
 // ============================
 Route::middleware(['auth'])->group(function () {
     Route::resource('fields', FieldController::class); // fields.index ini yang dipanggil
-    // Menampilkan form edit
-    Route::get('/fields/edit/{id}', [FieldController::class, 'edit'])->name('fields.edit');
 
-    // Menyimpan hasil edit
-    Route::put('/fields/update/{id}', [FieldController::class, 'update'])->name('fields.update');
+    Route::get('pemilik/lapangan/{lapanganId}/detail/{tanggal}', [FieldController::class, 'detailLapangan'])->name('pemilik.lapangan.detail');
 
-});
+    Route::get('pelanggan/pesan', [OrderController::class, 'index'])->name('pelanggan.fields.index');
+    Route::get('pelanggan/pesan/create', [OrderController::class, 'create']);
+    Route::post('pelanggan/pesan/store', [OrderController::class, 'store']);
+    Route::get('pelanggan/pesan/data', [OrderController::class, 'data_order'])->name('pelanggan.fields.data');
 
 
-
-Route::prefix('fields/{field}/schedules')->middleware(['auth'])->group(function () {
-    Route::get('/', [ScheduleController::class, 'index'])->name('fields.schedules.index');
-    Route::get('/create', [ScheduleController::class, 'create'])->name('fields.schedules.create');
-    Route::post('/', [ScheduleController::class, 'store'])->name('fields.schedules.store');
+    Route::get('pemilik/pesan/data', [OrderController::class, 'owner_data_order'])->name('pemilik.orders.data');
+    Route::put('pemilik/pesan/data/{order_unique_id}', [OrderController::class, 'updateStatus'])->name('pemilik.orders.updateStatus');
 
 
 });
+
+

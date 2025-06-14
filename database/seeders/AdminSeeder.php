@@ -21,5 +21,13 @@ class AdminSeeder extends Seeder
             'password' => Hash::make('adminpassword123'), // ganti password yang kuat
             'role' => 'pemilik',
         ]);
+
+        User::create([
+            'name' => 'user',
+            'username' => 'user8', // pastikan unik
+            'email' => 'user@example.com',
+            'password' => Hash::make('userpassword123'), // ganti password yang kuat
+            'role' => 'pelanggan',
+        ]);
     }
 }

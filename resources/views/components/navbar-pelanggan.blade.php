@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-2">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white shadow-sm py-2">
     <div class="container">
         <!-- Brand/logo with subtle animation -->
         <a class="navbar-brand fw-bold text-danger fs-4 hover-scale" href="#" style="transition: all 0.3s ease;">
@@ -14,23 +14,33 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-lg-center">
                 <li class="nav-item mx-1 mx-lg-2">
-                    <a class="nav-link fw-medium position-relative px-2" href="{{ url('/pelanggan/dashboard') }}">
-                        Beranda
-                        <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded" style="height: 2px; width: 0; transition: width 0.3s ease;"></span>
+                    <a class="nav-link fw-medium position-relative px-2 {{ Request::is('pelanggan/dashboard') ? 'active' : '' }}" href="{{ url('/pelanggan/dashboard') }}">
+                        Dashboard
+                        <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded"
+                              style="height: 2px; width: {{ Request::is('pelanggan/dashboard') ? '70%' : '0' }}; transition: width 0.3s ease;"></span>
                     </a>
                 </li>
                 <li class="nav-item mx-1 mx-lg-2">
-                    <a class="nav-link fw-medium position-relative px-2" href="{{ url('/pelanggan/jadwal') }}">
+                    <a class="nav-link fw-medium position-relative px-2 {{ Request::is('pelanggan/pesan') ? 'active' : '' }}" href="{{ url('/pelanggan/pesan') }}">
                         Sewa Lapangan
-                        <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded" style="height: 2px; width: 0; transition: width 0.3s ease;"></span>
-                    </a>
-                <li class="nav-item mx-1 mx-lg-2">
-                    <a class="nav-link fw-medium position-relative px-2" href="{{ url('/pelanggan/akun') }}">
-                        Akun
-                        <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded" style="height: 2px; width: 0; transition: width 0.3s ease;"></span>
+                        <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded"
+                              style="height: 2px; width: {{ Request::is('pelanggan/pesan') ? '70%' : '0' }}; transition: width 0.3s ease;"></span>
                     </a>
                 </li>
-
+                <li class="nav-item mx-1 mx-lg-2">
+                    <a class="nav-link fw-medium position-relative px-2 {{ Request::is('pelanggan/pesan/data') ? 'active' : '' }}" href="{{ url('/pelanggan/pesan/data') }}">
+                        Data Sewa Lapangan
+                        <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded"
+                              style="height: 2px; width: {{ Request::is('pelanggan/pesan/data') ? '70%' : '0' }}; transition: width 0.3s ease;"></span>
+                    </a>
+                </li>
+                <li class="nav-item mx-1 mx-lg-2">
+                    <a class="nav-link fw-medium position-relative px-2 {{ Request::is('pelanggan/akun') ? 'active' : '' }}" href="{{ url('/pelanggan/akun') }}">
+                        Akun
+                        <span class="position-absolute bottom-0 start-50 translate-middle-x bg-danger rounded"
+                              style="height: 2px; width: {{ Request::is('pelanggan/akun') ? '70%' : '0' }}; transition: width 0.3s ease;"></span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -45,12 +55,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add hover effect to nav links
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
-        link.addEventListener('mouseenter', function() {
-            this.querySelector('span').style.width = '70%';
-        });
-        link.addEventListener('mouseleave', function() {
-            this.querySelector('span').style.width = '0';
-        });
+        if (!link.classList.contains('active')) {
+            link.addEventListener('mouseenter', function() {
+                this.querySelector('span').style.width = '70%';
+            });
+            link.addEventListener('mouseleave', function() {
+                this.querySelector('span').style.width = '0';
+            });
+        }
     });
 
     // Add hover effect to brand and buttons
@@ -67,6 +79,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
+    .nav-link.active {
+        color: #e31e25 !important;
+        font-weight: 600;
+    }
     .nav-link.active span {
         width: 70% !important;
     }

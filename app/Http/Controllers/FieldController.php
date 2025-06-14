@@ -13,6 +13,20 @@ class FieldController extends Controller
         return view('pemilik.fields.index', compact('fields'));
     }
 
+    public function detailLapangan($lapanganId, $tanggal)
+{
+    $orders = \App\Models\Order::with('user', 'field')
+        ->where('lapangan_id', $lapanganId)
+        ->where('tanggal', $tanggal)
+        ->orderBy('jam')
+        ->get();
+
+    $lapangan = \App\Models\Field::findOrFail($lapanganId);
+
+    return view('pemilik.fields.detail', compact('orders', 'lapangan', 'tanggal'));
+}
+
+
     public function create()
     {
         return view('pemilik.fields.create');
